@@ -1,3 +1,4 @@
 #!/bin/bash
 RES=$(curl --silent -XPOST -H "Content-Type: application/json" https://api.mojang.com/profiles/minecraft -d "[\"$1\"]")
 echo "$RES"
+
