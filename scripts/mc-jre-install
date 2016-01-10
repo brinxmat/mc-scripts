@@ -1,0 +1,34 @@
+#!/bin/bash
+
+SERVER_FILE=minecraft_server.1.8.9.jar
+SERVER_URL=https://s3.amazonaws.com/Minecraft.Download/versions/1.8.9/$SERVER_FILE
+
+java -version > /dev/null 2>&1
+if [ $? -eq 0 ] ; then
+  echo "Java already installed, moving on"
+else
+  sudo apt-get update
+  sudo apt-get -y install openjdk-8-jre
+fi
+
+ls /opt/minecraft > /dev/null 2>&1
+
+if [ $? -eq 0 ] ; then
+  echo "Directory /opt/minecraft already exists, moving on"
+else
+  sudo mkdir /opt/minecraft
+fi
+
+cd /opt/minecraft
+
+ls "$SERVER_FILE" > /dev/null 2>&1
+if [ $? -eq 0 ] ; then
+  echo "Minecraft server jar already in place, moving on"
+else
+  sudo wget $SERVER_URL
+  sudo java -Xmx1024M -Xms1024M -jar minecraft_server.1.8.9.jar nogui
+fi
+
+sudo sed -i s/eula=false/eula=true/ eula.txt | sudo tee eula.txt --append
+sudo cp /vagrant/json/whitelist.json /opt/minecraft/whitelist.json
+sudo java -Xmx1024M -Xms1024M -jar minecraft_server.1.8.9.jar nogui
