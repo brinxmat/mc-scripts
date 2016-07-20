@@ -1,0 +1,18 @@
+#! /usr/bin/env sh
+
+VERSION="$1"
+VALID="^[0-9]\.$"
+
+if [[ $VERSION =~ $VALID  ]]
+then
+  echo 'Enter only a valid version number of form 1.10 or 1.10.2'
+  exit 1
+fi
+
+SERVICE_DEFINITION="$(cat service_template.txt)"
+
+cd /opt/minecraft && \
+sudo wget "https://s3.amazonaws.com/Minecraft.Download/versions/1.10.2/minecraft_server.$VERSION.jar" && \
+sudo stop minecraft-server && \
+sudo /etc/init/minecraft-server.conf < "${SERVICE_DEFINITION/__VERSION__/$VERSION}" && \
+sudo start minecraft-server
