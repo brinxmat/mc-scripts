@@ -11,6 +11,11 @@ Installs JRE and Minecraft server; running the script assumes that you accept th
 
 *usage:* mc-jre-install \<minecraft-version\>
 
+## mc-upgrade-server
+Upgrades to given version of Minecraft server; assumes mc-jre-install has already been run
+
+*usage:* mc-upgrade-server \<minecraft-version\> 
+
 ## Vagrant setup
 CAVEAT: Probably not a brilliant idea to run an unsecured vagrant dev environment with its ports open to the public, so use with great caution and only in firewalled environments. You mess up, it's your problem, mate.
 
