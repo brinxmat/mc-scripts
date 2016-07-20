@@ -42,9 +42,9 @@ if [ $? -eq 0 ] ; then
   echo "Minecraft server jar already in place, moving on"
 else
   sudo wget $SERVER_URL
-  sudo java -Xmx1024M -Xms1024M -jar minecraft_server.1.8.9.jar nogui
+  sudo java -Xmx1024M -Xms1024M -jar minecraft_server.$VERSION.jar nogui
 fi
 
 sudo sed -i s/eula=false/eula=true/ eula.txt | sudo tee eula.txt --append
-sudo cp /vagrant/json/whitelist.json /opt/minecraft/whitelist.json
-sudo java -Xmx1024M -Xms1024M -jar minecraft_server.1.8.9.jar nogui
+sudo cp "$SOURCEPATH"json/whitelist.json /opt/minecraft/whitelist.json
+sudo java -Xmx1024M -Xms1024M -jar minecraft_server.$VERSION.jar nogui
