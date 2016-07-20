@@ -9,7 +9,7 @@ then
   exit 1
 fi
 
-SERVICE_DEFINITION="$(cat service_template.txt)"
+SERVICE_DEFINITION="$(cat ./service_template.txt)"
 
 cd /opt/minecraft && \
 sudo wget "https://s3.amazonaws.com/Minecraft.Download/versions/1.10.2/minecraft_server.$VERSION.jar" && \
